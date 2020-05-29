@@ -22,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> list(int pid) {
         ReviewExample example=new ReviewExample();
         example.createCriteria().andPidEqualTo(pid);
-        example.setOrderByClause("createDate desc");
+        example.setOrderByClause("id desc");
         List<Review> reviews=reviewMapper.selectByExample(example);
         setUser(reviews);
         return reviews;

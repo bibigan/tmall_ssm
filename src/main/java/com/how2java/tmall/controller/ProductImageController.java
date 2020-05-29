@@ -37,6 +37,7 @@ public class ProductImageController {
         //需要product.category、singleImgList、detailImgList
         ModelAndView mav=new ModelAndView();
         Product product=productService.get(pid);
+
         Category category=categoryService.get(product.getCid());
         product.setCategory(category);
 

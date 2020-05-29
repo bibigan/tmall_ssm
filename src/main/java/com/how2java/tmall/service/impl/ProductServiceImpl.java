@@ -30,9 +30,10 @@ public class ProductServiceImpl implements ProductService {
         ProductExample productExample=new ProductExample();//辅助查询类
         productExample.createCriteria().andCidEqualTo(cid);//查询cid字段
         productExample.setOrderByClause("id desc");//设置排序
-        List<Product>productList= productMapper.selectByExample(productExample);
+        List<Product> productList= productMapper.selectByExample(productExample);
         //设置非数据库属性
-        set(productList);
+        setCategory(productList);
+        setFirstProductImage(productList);
         return productList;
     }
 
@@ -50,7 +51,8 @@ public class ProductServiceImpl implements ProductService {
     public Product get(int id) {
         Product p=productMapper.selectByPrimaryKey(id);
         //设置非数据库属性
-        set(p);
+        setCategory(p);
+        setFirstProductImage(p);
         return p;
     }
 
@@ -68,6 +70,11 @@ public class ProductServiceImpl implements ProductService {
             p.setFirstProductImage(pi);
         }
     }
+    public void setFirstProductImage(List<Product> ps) {
+        for (Product p : ps) {
+            setFirstProductImage(p);
+        }
+    }
 //给多个产品设置图片
     public void setCategory(Product p){
         int cid = p.getCid();
@@ -75,6 +82,10 @@ public class ProductServiceImpl implements ProductService {
         p.setCategory(c);
     }
 
+    public void setCategory(List<Product> ps){
+        for (Product p : ps)
+            setCategory(p);
+    }
     @Override
     public void fill(List<Category> cs) {
         for (Category c:cs)
@@ -103,17 +114,21 @@ public class ProductServiceImpl implements ProductService {
             c.setProductsByRow(productsByRow);
         }
     }
+    @Override
     public void setProductSingleImages(Product p){
         List<ProductImage> productImageList=productImageService.list(p.getId(), ProductImageService.type_single);
         p.setProductSingleImages(productImageList);
     }
+    @Override
     public void setProductDetailImages(Product p){
         List<ProductImage> productImageList=productImageService.list(p.getId(), ProductImageService.type_detail);
         p.setProductDetailImages(productImageList);
     }
+    @Override
     public void setReviewCount(Product p){//设置某产品下的评论数
         p.setReviewCount(reviewService.getReviewCount(p.getId()));
     }
+    @Override
     public void setSaleCount(Product p){//设置某产品下的销量
         //销量为该产品下的订单项的数量之和
         p.setSaleCount(orderItemService.getSaleCount(p));
@@ -122,8 +137,8 @@ public class ProductServiceImpl implements ProductService {
         for(Product p:ps){
             setCategory(p);
             setFirstProductImage(p);
-            setProductDetailImages(p);
-            setProductSingleImages(p);
+//            setProductDetailImages(p);
+//            setProductSingleImages(p);
             setReviewCount(p);
             setSaleCount(p);
         }
@@ -131,8 +146,8 @@ public class ProductServiceImpl implements ProductService {
     public void set(Product p){//设置非数据库属性
         setCategory(p);
         setFirstProductImage(p);
-        setProductDetailImages(p);
-        setProductSingleImages(p);
+//        setProductDetailImages(p);
+//        setProductSingleImages(p);
         setReviewCount(p);
         setSaleCount(p);
     }
@@ -146,5 +161,25 @@ public class ProductServiceImpl implements ProductService {
         //设置非数据库属性
         set(productList);
         return productList;
+    }
+
+    public ProductServiceImpl() {
+        super();
+    }
+
+    @Override
+    public void setSaleAndReviewNumber(Product p) {
+        int saleCount = orderItemService.getSaleCount(p);
+        p.setSaleCount(saleCount);
+
+        int reviewCount = reviewService.getReviewCount(p.getId());
+        p.setReviewCount(reviewCount);
+    }
+
+    @Override
+    public void setSaleAndReviewNumber(List<Product> ps) {
+        for (Product p : ps) {
+            setSaleAndReviewNumber(p);
+        }
     }
 }

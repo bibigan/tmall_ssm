@@ -23,4 +23,12 @@ public interface ProductService {
     void fillByRow(List<Category> cs);
     //搜索关键词
     List<Product> searchProuducts(String keyword);
+
+    //设置非数据库字段
+    void setProductSingleImages(Product p);
+    void setProductDetailImages(Product p);
+    void setReviewCount(Product p);
+    void setSaleCount(Product p);
+    void setSaleAndReviewNumber(Product p);
+    void setSaleAndReviewNumber(List<Product> ps);
 }

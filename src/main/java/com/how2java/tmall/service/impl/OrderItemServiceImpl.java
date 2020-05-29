@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class OrderItemServiceImpl implements OrderItemService{
     @Autowired
@@ -74,8 +73,7 @@ public class OrderItemServiceImpl implements OrderItemService{
 
     @Override
     public void fill(Order o) {
-        List<OrderItem> ois=list(o);//找出o下的所有oi
-        setProduct(ois);//设置ois的所属产品
+        List<OrderItem> ois=list(o);//找出o下的所有oi 设置了ois的所属产品
         // 计算o的总金额、总数量
         float total=0f;//该订单的总计金额
         int totalNumber=0;//该订单的总计数量
@@ -83,7 +81,7 @@ public class OrderItemServiceImpl implements OrderItemService{
             total+=oi.getProduct().getPromotePrice()*oi.getNumber();
             totalNumber+=oi.getNumber();
         }
-        o.setOrderItems(ois);
+        o.setorderItemList(ois);
         o.setTotal(total);
         o.setTotalNumber(totalNumber);
     }
@@ -98,7 +96,14 @@ public class OrderItemServiceImpl implements OrderItemService{
     @Override
     public int getSaleCount(Product p){
         //销量为该产品下的订单项的数量之和
-        return list(p.getId()).size();
+        OrderItemExample example =new OrderItemExample();
+        example.createCriteria().andPidEqualTo(p.getId());
+        List<OrderItem> ois =orderItemMapper.selectByExample(example);
+        int result =0;
+        for (OrderItem oi : ois) {
+            result+=oi.getNumber();
+        }
+        return result;
     }
     //基于用户对象user，查询没有生成订单的某产品的订单项
     @Override

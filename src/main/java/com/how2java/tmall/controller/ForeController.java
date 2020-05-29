@@ -5,13 +5,15 @@ import com.how2java.tmall.service.*;
 import com.how2java.tmall.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
+import java.io.Console;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -118,8 +120,12 @@ public class ForeController {
         ModelAndView mav =new ModelAndView();
         //需要传pvs、p、reviews
         Product product=productService.get(pid);//设置了非数据库字段
+        productService.setProductDetailImages(product);
+        productService.setProductSingleImages(product);
+
         List<PropertyValue> pvs=propertyValueService.list(pid);//设置了pt
         List<Review> reviews=reviewService.list(pid);//设置了user
+        productService.setSaleAndReviewNumber(product);//设置了销量评论数
         mav.addObject("pvs",pvs);
         mav.addObject("p",product);
         mav.addObject("reviews",reviews);
@@ -161,6 +167,7 @@ public class ForeController {
         //需要填充好ps的c ps也要填充
         Category c=categoryService.get(cid);
         productService.fill(c);
+        productService.setSaleAndReviewNumber(c.getProducts());
         //排序
         if(null!=sort){
             switch (sort){
@@ -191,6 +198,7 @@ public class ForeController {
         ModelAndView mav=new ModelAndView("fore/searchResult");
         //传递ps
         List<Product> ps=productService.searchProuducts(keyword);
+        productService.setSaleAndReviewNumber(ps);
 
         //排序
         if(null!=sort){
@@ -258,19 +266,20 @@ public class ForeController {
     }
     //结算页面
     @RequestMapping("forebuy")
-    public ModelAndView buy(int[] oiids,HttpSession session){//在购物车中选中的多条OrderItem数据
+    public ModelAndView buy(int[] oiid,HttpSession session){
         ModelAndView mav=new ModelAndView("fore/buy");
-        //这些oiid对应的，填充了p的ois,订单项们的总结算金额sum
-        List<OrderItem> ois=new ArrayList<>();
-        float sum=0f;
-        for(int i=0;i<oiids.length;i++){
-            int oiid=oiids[i];
-            OrderItem oi=orderItemService.get(oiid);//设置了p
-            sum+=oi.getNumber()*oi.getProduct().getPromotePrice();
+        List<OrderItem> ois = new ArrayList<>();
+        float total = 0;
+        for (int i=0;i<oiid.length;i++) {
+            int id = oiid[i];
+            OrderItem oi= orderItemService.get(id);
+            total +=oi.getProduct().getPromotePrice()*oi.getNumber();
             ois.add(oi);
         }
-        mav.addObject("ois",ois);
-        mav.addObject("sum",sum);
+        session.setAttribute("ois", ois);
+        mav.addObject("sum", total);
         return mav;
     }
+
 }
+

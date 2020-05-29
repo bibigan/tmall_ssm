@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -42,6 +43,7 @@ public class ProductController {
     @RequestMapping("admin_product_add")
     public ModelAndView addProduct(Product product){
         ModelAndView mav=new ModelAndView("redirect:/admin_product_list?cid="+product.getCid());
+        product.setCreateDate(new Date());
         productService.add(product);
         return mav;
     }
