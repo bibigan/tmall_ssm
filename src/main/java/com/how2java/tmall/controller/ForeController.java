@@ -88,7 +88,7 @@ public class ForeController {
         session.setAttribute("user",u);//设置session的用户
 
         if(u!=null){//账户密码正确
-            //设置user、cartTotalItemNumber
+            //设置user
             mav.setViewName("redirect:/forehome");
         }
         else{//不成功
@@ -229,8 +229,23 @@ public class ForeController {
     //加入购物车 新增 OrderItem
     @RequestMapping("foreaddCart")
     @ResponseBody
-    public String addCart(int pid,int num){//num:加入购物车的数量
-        return "";
+    public String addCart(int pid,int num,HttpSession session){//num:加入购物车的数量
+        //和点击立即购买操作一样，就是返回值不同
+        Product p=productService.get(pid);
+        User user=(User)session.getAttribute("user");
+        OrderItem oi=orderItemService.getUser_Product_notOrder(user.getId(),pid);//没有设置p
+        if(oi==null){
+            oi=new OrderItem();
+            oi.setNumber(num);
+            oi.setOid(-1);//未形成订单
+            oi.setPid(p.getId());
+            oi.setUid(user.getId());
+            orderItemService.add(oi);//加到数据库//加到了购物车里
+        }else{
+            oi.setNumber(oi.getNumber()+num);
+            orderItemService.update(oi);//更新数据库
+        }
+        return "success";
     }
     //立即购买 新增 OrderItem
     @RequestMapping("forebuyone")
@@ -276,10 +291,30 @@ public class ForeController {
             total +=oi.getProduct().getPromotePrice()*oi.getNumber();
             ois.add(oi);
         }
-        session.setAttribute("ois", ois);
+        session.setAttribute("ois", ois);//?
         mav.addObject("sum", total);
         return mav;
     }
-
+    @RequestMapping("forecart")
+    public ModelAndView cart(HttpSession session){
+//        1. 通过session获取当前用户
+//        所以一定要登录才访问，否则拿不到用户对象,会报错
+//        2. 获取为这个用户关联的未成订单的订单项集合 ois
+//        3. 把ois放在model中
+//        4. 服务端跳转到cart.jsp
+        ModelAndView mav=new ModelAndView("fore/cart");
+        User user=(User) session.getAttribute("user");//已经模态登录
+        List<OrderItem> ois=orderItemService.listInCart(user.getId());
+        mav.addObject("ois",ois);
+        return mav;
+    }
+    //异步刷新购物车数量
+    @RequestMapping("forecartNumber")
+    @ResponseBody
+    public int cartNumber(HttpSession session){
+        int data=(int) session.getAttribute("cartTotalItemNumber");
+        System.out.println("***************************data**********    ==="+data);
+        return data;
+    }
 }
 

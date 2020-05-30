@@ -10,5 +10,5 @@
 <div style="clear:both"></div>
 <!-- 分类业务页面 -->
 <%@include file="../include/fore/category/categoryPage.jsp"%>
-<!-- <!-- 页脚-->
+<!--  页脚-->
 <%@include file="../include/fore/footer.jsp"%>

@@ -65,6 +65,18 @@ public class OrderItemServiceImpl implements OrderItemService{
         setProduct(orderItems);
         return orderItems;
     }
+
+    @Override
+    public List<OrderItem> listInCart(int uid) {//查看某用户购物车里的订单项oid=-1;
+        OrderItemExample orderItemExample=new OrderItemExample();
+        orderItemExample.createCriteria().andUidEqualTo(uid)
+                                         .andOidEqualTo(-1);
+        orderItemExample.setOrderByClause("id desc");
+        List<OrderItem> orderItems= orderItemMapper.selectByExample(orderItemExample);
+        setProduct(orderItems);
+        return orderItems;
+    }
+
     @Override
     public void fill(List<Order> os) {
         for(Order o:os)

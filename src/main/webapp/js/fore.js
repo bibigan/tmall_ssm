@@ -153,14 +153,14 @@ $(function(){
 		$(this).hide();
         $("span.leaveMessageTextareaSpan").show();
         $("textarea.leaveMessageTextarea").focus();
-        $("div.orderItemSumDiv").css("height","100px");
+        $("div.orderItemListumDiv").css("height","100px");
     });
 
     $("textarea.leaveMessageTextarea").blur(function () {
         $("span.leaveMessageTextareaSpan").hide();
         $("input.leaveMessageInput").show();
         $("input.leaveMessageInput").val($("textarea.leaveMessageTextarea").val());
-        $("div.orderItemSumDiv").css("height","50px");
+        $("div.orderItemListumDiv").css("height","50px");
     });
     $("textarea.leaveMessageTextarea").keyup(function () {
         var num=$(this).val().length;
@@ -407,7 +407,7 @@ $(function(){
 //		var pid=$(this).attr("pid");
 //		var num=$(this).val();
 //		var price=$("span.orderItemPromotePrice[pid="+pid+"]").text();
-//		var stock=$("span.orderItemStock[pid="+pid+"]").text();
+//		var stock=$("span.orderItemListtock[pid="+pid+"]").text();
 //		num = parseInt(num);
 //		if(isNAN(num))
 //			num=1;
@@ -433,7 +433,7 @@ $(function(){
 //		var pid=$(this).attr("pid");
 //		var num=$(".orderItemNumberSetting[pid="+pid+"]").val();
 //		var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
-//		var stock=$("span.orderItemStock[pid="+pid+"]").text();
+//		var stock=$("span.orderItemListtock[pid="+pid+"]").text();
 //		num = parseInt(num);
 //		if(num<stock)
 //			num++;
@@ -454,7 +454,7 @@ $(function(){
 //	//改变数量
 //	$("input.orderItemNumberSetting").keyup(function(){
 //        var pid=$(this).attr("pid");
-//        var stock= $("span.orderItemStock[pid="+pid+"]").text();
+//        var stock= $("span.orderItemListtock[pid="+pid+"]").text();
 //        var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
 //         
 //        var num= $(".orderItemNumberSetting[pid="+pid+"]").val();

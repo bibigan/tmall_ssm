@@ -91,7 +91,7 @@ $(function(){
      
     $(".orderItemNumberSetting").keyup(function(){
         var pid=$(this).attr("pid");
-        var stock= $("span.orderItemStock[pid="+pid+"]").text();
+        var stock= $("span.orderItemListtock[pid="+pid+"]").text();
         var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
          
         var num= $(".orderItemNumberSetting[pid="+pid+"]").val();
@@ -109,7 +109,7 @@ $(function(){
     $(".numberPlus").click(function(){
          
         var pid=$(this).attr("pid");
-        var stock= $("span.orderItemStock[pid="+pid+"]").text();
+        var stock= $("span.orderItemListtock[pid="+pid+"]").text();
         var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
         var num= $(".orderItemNumberSetting[pid="+pid+"]").val();
  
@@ -120,7 +120,7 @@ $(function(){
     });
     $(".numberMinus").click(function(){
         var pid=$(this).attr("pid");
-        var stock= $("span.orderItemStock[pid="+pid+"]").text();
+        var stock= $("span.orderItemListtock[pid="+pid+"]").text();
         var price= $("span.orderItemPromotePrice[pid="+pid+"]").text();
          
         var num= $(".orderItemNumberSetting[pid="+pid+"]").val();
@@ -309,7 +309,7 @@ $.post(
 <!-- 					数量 -->
 						<td>
 							<div class="cartProductChangeNumberDiv">
-                                <span pid="${oi.product.id}" class="hidden orderItemStock ">${oi.product.stock}</span>
+                                <span pid="${oi.product.id}" class="hidden orderItemListtock ">${oi.product.stock}</span>
                                 <span pid="${oi.product.id}" class="hidden orderItemPromotePrice ">${oi.product.promotePrice}</span>
                                 <a href="#nowhere" class="numberMinus" pid="${oi.product.id}">-</a>
                                 <input value="${oi.number}" autocomplete="off" class="orderItemNumberSetting" oiid="${oi.id}" pid="${oi.product.id}">

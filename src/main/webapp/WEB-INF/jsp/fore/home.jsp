@@ -31,7 +31,7 @@
          
 <!--         $(this).hide(); -->
 <!--         $("span.leaveMessageTextareaSpan").show(); -->
-<!--         $("div.orderItemSumDiv").css("height","100px"); -->
+<!--         $("div.orderItemListumDiv").css("height","100px"); -->
 <!--     }); -->
      
 <!--     $("div#footer a[href$=#nowhere]").click(function(){ -->

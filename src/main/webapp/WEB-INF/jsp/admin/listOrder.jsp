@@ -12,7 +12,7 @@
 <script>
 // 点击订单详情时切换订单项div
 $(function(){
-	$("button.orderPageCheckOrderItems").click(function(){
+	$("button.orderPageCheckorderItemList").click(function(){
 		var oid = $(this).attr("oid");
 		$("tr.orderPageOrderItemTR[oid="+oid+"]").toggle();
 	});
@@ -53,7 +53,7 @@ $(function(){
         				<td><fmt:formatDate value="${o.deliveryDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
         				<td><fmt:formatDate value="${o.confirmDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             			<td>
-            				<button oid="${o.id}" class="orderPageCheckOrderItems btn btn-primary btn-xs">订单详情</button>
+            				<button oid="${o.id}" class="orderPageCheckorderItemList btn btn-primary btn-xs">订单详情</button>
 							<c:if test="${o.status=='waitDelivery'}">
 								<a href="admin_order_delivery?id=${o.id}">
 									<button class="btn btn-primary btn-xs">发货</button>

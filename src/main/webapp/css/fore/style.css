@@ -1283,11 +1283,11 @@ select.orderItemDeliverySelect {
 	height: 23px;
 }
 
-div.orderItemSumDiv span {
+div.orderItemListumDiv span {
 	color: #999999;
 }
 
-div.orderItemSumDiv {
+div.orderItemListumDiv {
 	padding: 20px;
 	border-top: 2px solid #B4D0FF;
 	background-color: #F2F6FF;
@@ -1869,7 +1869,7 @@ div.confirmPayOrderItemText {
 	font-weight: normal;
 }
 
-span.confirmPayOrderItemSumPrice {
+span.confirmPayorderItemListumPrice {
 	color: #C40000;
 }
 

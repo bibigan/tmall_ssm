@@ -36,6 +36,7 @@ public class OrderController {
         page.setTotal(total);
 
         mav.addObject("os",os);
+        mav.addObject("page", page);
         mav.setViewName("admin/listOrder");
         return mav;
     }

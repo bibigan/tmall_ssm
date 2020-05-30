@@ -13,6 +13,7 @@ public interface OrderItemService {
     List<OrderItem> list();
     List<OrderItem> list(Order o);
     List<OrderItem> list(int pid);
+    List<OrderItem> listInCart(int uid);
     void add(OrderItem orderItem);
     //填充订单,页面要通过订单来调订单项
     void fill(List<Order> os);

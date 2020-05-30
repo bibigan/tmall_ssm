@@ -603,12 +603,12 @@ span.orderItemUnitSum{
 	color: #CC0000;
 	font-weight: bold;
 }
-div.orderItemSumDiv{
+div.orderItemListumDiv{
 	border-top: 2px solid #B4D0FF;
 	background-color: #F2F6FF;
 	height:40px;
 }
-div.orderItemSumDiv div,div.orderItemSumDiv span{
+div.orderItemListumDiv div,div.orderItemListumDiv span{
 	padding:10px 10px;
 	font-size:12px;
 	color: #8f8f8f;

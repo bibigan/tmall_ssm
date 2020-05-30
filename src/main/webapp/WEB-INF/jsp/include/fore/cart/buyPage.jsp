@@ -96,7 +96,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="orderItemSumDiv">
+		<div class="orderItemListumDiv">
 			<div class="pull-left">
 				<span class="leaveMessageText">给卖家留言:</span>
                 <input type="text" class="leaveMessageInput"  placeholder="（选填）对本次交易的说明"> 

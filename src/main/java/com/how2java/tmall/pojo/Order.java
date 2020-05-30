@@ -35,7 +35,7 @@ public class Order {
 
 
     /*如下是非数据库字段*/
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItemList;
 
     private User user;
 
@@ -147,20 +147,14 @@ public class Order {
         this.status = status == null ? null : status.trim();
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public List<OrderItem> getorderItemList() {
+        return orderItemList;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setorderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
-    
-    
-    public static void main(String args[]){
-        Order o  = new Order();
-        o.setStatus(OrderService.delete);
-        System.out.println(o.getStatusDesc());
-    }
+
     public String getStatusDesc(){
         String desc ="未知";
         switch(status){

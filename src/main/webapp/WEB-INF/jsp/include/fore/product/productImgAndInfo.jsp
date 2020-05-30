@@ -57,7 +57,14 @@ $(function(){
                                         $(".addCartButton").css("background-color","lightgray");
                                         $(".addCartButton").css("border-color","lightgray");
                                         $(".addCartButton").css("color","black");
-                                         
+										// var getCartTotalItemNumberPage="forecartNumber"
+                                        // $.get(
+										// 		getCartTotalItemNumberPage,
+										// 		function (data) {
+										// 			console.log("data:"+data);
+										// 			$("span.cartNum").html(data);
+										// 		}
+										// );
                                     }
                                     else{
                                          
@@ -88,34 +95,6 @@ $(function(){
                 }
         );      
         return false;
-    });
-     //模态登录点击登录
-    $("button.loginSubmitButton").click(function(){
-        var name = $("#name").val();
-        var password = $("#password").val();
-         
-        if(0==name.length||0==password.length){
-            $("span.errorMessage").html("请输入账号密码");
-            $("div.loginErrorMessageDiv").show();           
-            return false;
-        }
-         
-        var page = "foreloginAjax";
-        $.get(
-                page,
-                {"name":name,"password":password},
-                function(result){
-                    if("success"==result){
-                        location.reload();//刷新当前文档
-                    }
-                    else{
-                        $("span.errorMessage").html("账号密码错误");
-                        $("div.loginErrorMessageDiv").show();                       
-                    }
-                }
-        );          
-         
-        return true;
     });
 });
 </script>
